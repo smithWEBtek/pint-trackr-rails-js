@@ -51,6 +51,11 @@ class BeersController < ApplicationController
     redirect_to 'beers/index', notice: "Beer successfully deleted."
   end
 
+	def add_beer_form
+		@beer = Beer.new
+		render partial: 'beers/form'
+	end
+
   private
 
   def set_user

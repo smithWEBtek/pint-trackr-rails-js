@@ -8,5 +8,7 @@ Rails.application.routes.draw do
   post '/sessions', to: 'sessions#create'
   post '/users/new', to: 'users#create'
   get '/logout', to: 'sessions#destroy'
-  get '/auth/facebook/callback' => 'sessions#create_from_oath'
+	get '/auth/facebook/callback' => 'sessions#create_from_oath'
+	
+	get '/add_beer_form', to: 'beers#add_beer_form'
 end
