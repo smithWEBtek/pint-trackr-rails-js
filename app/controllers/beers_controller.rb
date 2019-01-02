@@ -15,7 +15,7 @@ class BeersController < ApplicationController
     @brewery = Brewery.new
   end
 
-  def create
+	def create
     @brewery = Brewery.find_or_create_by(beer_params[:brewery_attributes])
     @beer = Beer.create(beer_params)
     @beer.brewery_id = @brewery.id

@@ -1,3 +1,9 @@
+$(function () {
+	console.log('this file is loading......');
+	addBeer()
+})
+
+
 // JSON Beer Constructor
 class Beer {
 	constructor(beerData) {
@@ -72,7 +78,7 @@ function getUserBeers(data) {
 	}
 
 	$('div#show_user_beers').html(`${userBeersHTML}`)
-	addBeer()
+	// addBeer()
 }
 
 // get form partial via Ajax
@@ -91,6 +97,8 @@ function addBeer() {
 				console.log("response: ", response)
 				$('#add-beer-form-div').html(response)
 				// listen for form submit
+
+				createBeer()
 			})
 		})
 	})
@@ -110,9 +118,8 @@ function showMoreBreweryBeers(data) {
 	$('div#show_brewery ul').html(`${breweryShowHTML}`)
 }
 
-$(function () {
-	// new beer request
-	$('#new-beer-form').on("submit", function (e) {
+function createBeer() {
+	$('form#new_beer').on("submit", function (e) {
 		e.preventDefault();
 		$.ajax({
 			url: this.action,
@@ -128,66 +135,66 @@ $(function () {
 			},
 		});
 	})
+}
 
-	// show next beer request
-	$('#show_beer').on('click', 'a.next_beer', function (e) {
-		e.preventDefault();
-		$.ajax({
-			type: "GET",
-			url: this.href,
-			dataType: 'json',
-			success: function (response) {
-				getBeer(response)
-			},
-			error: function (response) {
-				alert("Oops! Something went wrong!")
-			}
-		})
+// show next beer request
+$('#show_beer').on('click', 'a.next_beer', function (e) {
+	e.preventDefault();
+	$.ajax({
+		type: "GET",
+		url: this.href,
+		dataType: 'json',
+		success: function (response) {
+			getBeer(response)
+		},
+		error: function (response) {
+			alert("Oops! Something went wrong!")
+		}
 	})
+})
 
-	// show previous beer request
-	$('#show_beer').on('click', 'a.prev_beer', function (e) {
-		e.preventDefault();
-		$.ajax({
-			type: "GET",
-			url: this.href,
-			dataType: 'json',
-			success: function (response) {
-				getBeer(response)
-			},
-			error: function (response) {
-				alert("Oops! Something went wrong!")
-			}
-		})
+// show previous beer request
+$('#show_beer').on('click', 'a.prev_beer', function (e) {
+	e.preventDefault();
+	$.ajax({
+		type: "GET",
+		url: this.href,
+		dataType: 'json',
+		success: function (response) {
+			getBeer(response)
+		},
+		error: function (response) {
+			alert("Oops! Something went wrong!")
+		}
 	})
+})
 
-	$('#show_user').on('click', 'a.show_user_beers', function (e) {
-		e.preventDefault();
-		$.ajax({
-			type: "GET",
-			url: this.href,
-			dataType: 'json',
-			success: function (response) {
-				getUserBeers(response)
-			},
-			error: function (response) {
-				alert("Oops! Something went wrong!")
-			}
-		})
+$('#show_user').on('click', 'a.show_user_beers', function (e) {
+	e.preventDefault();
+	$.ajax({
+		type: "GET",
+		url: this.href,
+		dataType: 'json',
+		success: function (response) {
+			getUserBeers(response)
+		},
+		error: function (response) {
+			alert("Oops! Something went wrong!")
+		}
 	})
+})
 
-	$('#show_brewery').on('click', 'button.show_more', function (e) {
-		e.preventDefault();
-		$.ajax({
-			type: "GET",
-			dataType: 'json',
-			success: function (response) {
-				showMoreBreweryBeers(response)
-			},
-			error: function (response) {
-				debugger
-				alert("Oops! Something went wrong!")
-			}
-		})
+$('#show_brewery').on('click', 'button.show_more', function (e) {
+	e.preventDefault();
+	$.ajax({
+		type: "GET",
+		dataType: 'json',
+		success: function (response) {
+			showMoreBreweryBeers(response)
+		},
+		error: function (response) {
+			debugger
+			alert("Oops! Something went wrong!")
+		}
 	})
 })
